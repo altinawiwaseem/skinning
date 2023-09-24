@@ -1,0 +1,62 @@
+.display-images {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.comparison-outcome {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.canvas-image {
+  width: 90%;
+}
+
+.comparison-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.comparison-buttons button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.comparison-outcome {
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.comparison-outcome h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.canvas-image {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid black;
+}
+
+/* .save-button {
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+} */
+
+.save-button:hover {
+  background-color: #0056b3;
+}

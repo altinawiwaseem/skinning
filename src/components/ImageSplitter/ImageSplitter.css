@@ -1,0 +1,83 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container button {
+  margin: 1rem;
+}
+
+.image-row {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  margin: 20px;
+  background-color: black;
+  border: 1px red solid;
+}
+
+.grid-row {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.grid-cell {
+  height: auto;
+  margin: 0.5px;
+}
+
+.mismatched {
+  border: 2px solid red;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+thead {
+  background-color: #007bff;
+  color: #fff;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.warning-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffc107;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #f39c12;
+  border-radius: 8px;
+  text-align: center;
+  width: 40%;
+  z-index: 9999;
+}
+
+/* .result-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.image-container,
+.table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+ */
