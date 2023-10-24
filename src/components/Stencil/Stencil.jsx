@@ -4,62 +4,17 @@ import StencilSettings from "./StencilSettings";
 import ImageDisplay from "../ImageDisplay/ImageDisplay";
 import ImageComparer from "../ImageComparer/ImageComparer";
 import ImageSplitter from "../ImageSplitter/ImageSplitter";
-import Sidebar from "../Sidebar/StencilsListSidebar";
 
-function Stencil({ image1, image2, rows, cols, description }) {
-  const [headlines, setHeadlines] = useState([]);
-  const [currentHeadlineIndex, setCurrentHeadlineIndex] = useState(null);
-  const [headlineName, setHeadlineName] = useState("");
-  const [headlineDescription, setHeadlineDescription] = useState("");
-
+function Stencil({ image1, image2, rows, cols }) {
   const [stencils, setStencils] = useState([
     { width: 100, height: 100, top: 20, left: 20 },
   ]);
+  const [pendingStencils, setPendingStencils] = useState([...stencils]);
 
-  const [pendingStencils, setPendingStencils] = useState([]);
   const [imageWithStencil1, setImageWithStencil1] = useState(null);
   const [imageWithStencil2, setImageWithStencil2] = useState(null);
   const [imageStencilOnly1, setImageStencilOnly1] = useState(null);
   const [imageStencilOnly2, setImageStencilOnly2] = useState(null);
-
-  useEffect(() => {
-    // Load headlines from local storage
-    const storedHeadlines = JSON.parse(localStorage.getItem("headlines")) || [];
-    setHeadlines(storedHeadlines);
-  }, []);
-
-  useEffect(() => {
-    // Load selected headline's stencils and description
-    if (currentHeadlineIndex !== null) {
-      setStencils(headlines[currentHeadlineIndex].stencils);
-      setHeadlineDescription(headlines[currentHeadlineIndex].description);
-    }
-  }, [currentHeadlineIndex, headlines]);
-
-  const handleHeadlineAdd = () => {
-    // Check if headlineName and headlineDescription are filled
-    if (headlineName && headlineDescription) {
-      const newHeadline = {
-        name: headlineName,
-        description: headlineDescription,
-        stencils: stencils,
-      };
-      setHeadlines([...headlines, newHeadline]);
-
-      // Save headlines to local storage
-      localStorage.setItem(
-        "headlines",
-        JSON.stringify([...headlines, newHeadline])
-      );
-
-      // Reset inputs and stencils
-      setHeadlineName("");
-      setHeadlineDescription("");
-      setStencils([{ width: 100, height: 100, top: 20, left: 20 }]);
-    } else {
-      alert("Please provide a headline name and description.");
-    }
-  };
 
   useEffect(() => {
     const loadImageAndGenerateStencil = (
@@ -138,8 +93,9 @@ function Stencil({ image1, image2, rows, cols, description }) {
     setPendingStencils([...pendingStencils, newStencil]);
     setStencils([...stencils, newStencil]);
   };
+
   const handleStencilChange = (index, property, value) => {
-    setStencils((prevStencils) => {
+    setPendingStencils((prevStencils) => {
       const updatedStencils = [...prevStencils];
       updatedStencils[index] = {
         ...updatedStencils[index],
@@ -148,6 +104,7 @@ function Stencil({ image1, image2, rows, cols, description }) {
       return updatedStencils;
     });
   };
+
   const handleStencilRemove = (index) => {
     setPendingStencils((prevStencils) => {
       const updatedStencils = [...prevStencils];
@@ -191,47 +148,23 @@ function Stencil({ image1, image2, rows, cols, description }) {
           Add Stencil
         </button>
       </div>
-      <div className="headline-inputs">
-        <input
-          type="text"
-          placeholder="Headline Name"
-          value={headlineName}
-          onChange={(e) => setHeadlineName(e.target.value)}
-        />
-        <textarea
-          placeholder="Headline Description"
-          value={headlineDescription}
-          onChange={(e) => setHeadlineDescription(e.target.value)}
-        />
-        <button className="btn-add-headline" onClick={handleHeadlineAdd}>
-          Add Headline
-        </button>
-      </div>
-      <div className="sidebar">
-        <h2>Headlines</h2>
-        <ul>
-          {headlines.map((headline, index) => (
-            <li key={index} onClick={() => setCurrentHeadlineIndex(index)}>
-              {headline.name}
-            </li>
+      {stencils && (
+        <div className="settings-container">
+          <h2 className="stencil-header">Stencil Settings</h2>
+          {pendingStencils.map((stencil, index) => (
+            <div className="settings" key={index}>
+              <StencilSettings
+                stencil={stencil}
+                onStencilChange={(property, value) =>
+                  handleStencilChange(index, property, value)
+                }
+                onRemoveStencil={() => handleStencilRemove(index)}
+                onSubmit={handleStencilSubmit}
+              />
+            </div>
           ))}
-        </ul>
-      </div>
-      <div className="settings-container">
-        <h2 className="stencil-header">Stencil Settings</h2>
-        {stencils.map((stencil, index) => (
-          <div className="settings" key={index}>
-            <button onClick={() => handleStencilRemove(index)}>Delete</button>
-            <h3>{`Stencil ${index + 1}`}</h3>
-            <StencilSettings
-              stencil={stencil}
-              onStencilChange={(property, value) =>
-                handleStencilChange(index, property, value)
-              }
-            />
-          </div>
-        ))}
-      </div>
+        </div>
+      )}
       <div className="stencil-container">
         <div className="images-con">
           <ImageDisplay
@@ -253,7 +186,6 @@ function Stencil({ image1, image2, rows, cols, description }) {
         </div>
         <div>
           <ImageComparer
-            description={description}
             image1={imageStencilOnlyMemo1}
             image2={imageStencilOnlyMemo2}
             image3={imageWithStencilMemo1}

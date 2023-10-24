@@ -7,7 +7,6 @@ function ImageUploader() {
   const [image2, setImage2] = useState(null);
   const [rowsNumber, setRowsNumber] = useState(20);
   const [colsNumber, setColsNumber] = useState(25);
-  const [description, setDescription] = useState("");
 
   const handleImageUpload = (event, setImage) => {
     const file = event.target.files[0];
@@ -27,10 +26,7 @@ function ImageUploader() {
   const handleColsNum = (e) => {
     setColsNumber(Number(e.target.value));
   };
-  const handleTextDescription = (e) => {
-    setDescription(e.target.value);
-  };
-  console.log(description);
+
   return (
     <div>
       <form className="images-upload-form">
@@ -45,18 +41,6 @@ function ImageUploader() {
             className="input-file"
             onChange={(e) => handleImageUpload(e, setImage2)}
           />
-        </div>
-        <div className="form-cells-group">
-          <div className="input-cells">
-            <label htmlFor="description"> Comparison Description </label>
-            <input
-              id="description"
-              type="text"
-              value={description}
-              onChange={(e) => handleTextDescription(e)}
-              placeholder="Comparison Description"
-            />
-          </div>
         </div>
         <div className="form-cells-group">
           <div className="input-cells">
@@ -88,7 +72,6 @@ function ImageUploader() {
           image2={image2}
           rows={rowsNumber}
           cols={colsNumber}
-          description={description}
         />
       )}
     </div>

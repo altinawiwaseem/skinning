@@ -35,34 +35,22 @@ function StencilSettings({
         <div className="input-fields">
           <div className="input-field">
             <label>Width:</label>
-            <input
-              type="number"
-              value={width || ""}
-              onChange={handleWidthChange}
-            />
+            <input type="number" value={width} onChange={handleWidthChange} />
             <span>px</span>
           </div>
           <div className="input-field">
             <label>Height:</label>
-            <input
-              type="number"
-              value={height || ""}
-              onChange={handleHeightChange}
-            />
+            <input type="number" value={height} onChange={handleHeightChange} />
             <span>px</span>
           </div>
           <div className="input-field">
             <label>Top:</label>
-            <input type="number" value={top || ""} onChange={handleTopChange} />
+            <input type="number" value={top} onChange={handleTopChange} />
             <span>px</span>
           </div>
           <div className="input-field">
             <label>Left:</label>
-            <input
-              type="number"
-              value={left || ""}
-              onChange={handleLeftChange}
-            />
+            <input type="number" value={left} onChange={handleLeftChange} />
             <span>px</span>
           </div>
         </div>
