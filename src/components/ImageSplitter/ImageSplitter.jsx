@@ -185,7 +185,7 @@ const ImageSplitter = ({ img1, img2, img3, img4, rows, cols }) => {
     return new Promise((resolve) => {
       resemble(cell1.imageDataUrl)
         .compareTo(cell2.imageDataUrl)
-        .ignoreAntialiasing()
+        /* .ignoreAntialiasing() */
         .onComplete((comparison) => {
           resolve(comparison);
         });
