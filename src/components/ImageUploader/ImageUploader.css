@@ -52,6 +52,10 @@
 }
 
 .input-cells input {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
   width: 73%;
   display: inline-block;
 }

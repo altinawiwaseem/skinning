@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import resemble from "resemblejs";
 import "./ImageComparer.css";
 
-function ImageComparer({ image1, image2, image3, image4 }) {
+function ImageComparer({ image1, image2, image3, image4, description }) {
   const [comparisonResult1, setComparisonResult1] = useState(null);
   const [comparisonResult2, setComparisonResult2] = useState(null);
 
