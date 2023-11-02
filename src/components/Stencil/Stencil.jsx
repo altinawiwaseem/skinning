@@ -7,8 +7,9 @@ import ImageSplitter from "../ImageSplitter/ImageSplitter";
 
 function Stencil({ image1, image2, rows, cols }) {
   const [stencils, setStencils] = useState([
-    { width: 100, height: 100, top: 20, left: 20 },
+    { width: 100, height: 100, top: 20, left: 20, color: "#000" },
   ]);
+
   const [pendingStencils, setPendingStencils] = useState([...stencils]);
 
   const [imageWithStencil1, setImageWithStencil1] = useState(null);
@@ -60,8 +61,9 @@ function Stencil({ image1, image2, rows, cols }) {
         ctx.drawImage(originalImage, 0, 0);
 
         // Draw the stencil on the canvas
-        ctx.fillStyle = "black";
+
         stencils.forEach((stencil) => {
+          ctx.fillStyle = stencil.color;
           ctx.fillRect(
             stencil.left,
             stencil.top,
@@ -89,7 +91,13 @@ function Stencil({ image1, image2, rows, cols }) {
   }, [image1, image2, stencils, pendingStencils]);
 
   const handleStencilAdd = () => {
-    const newStencil = { width: 100, height: 100, top: 20, left: 20 };
+    const newStencil = {
+      width: 100,
+      height: 100,
+      top: 20,
+      left: 20,
+      color: "#000",
+    };
     setPendingStencils([...pendingStencils, newStencil]);
     setStencils([...stencils, newStencil]);
   };

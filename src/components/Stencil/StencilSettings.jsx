@@ -6,7 +6,7 @@ function StencilSettings({
   onRemoveStencil,
   onSubmit,
 }) {
-  const { width, height, top, left } = stencil;
+  const { width, height, top, left, color } = stencil;
 
   const handleWidthChange = (e) => {
     onStencilChange("width", e.target.value);
@@ -22,6 +22,9 @@ function StencilSettings({
 
   const handleLeftChange = (e) => {
     onStencilChange("left", e.target.value);
+  };
+  const handleColorChange = (e) => {
+    onStencilChange("color", e.target.value);
   };
 
   return (
@@ -52,6 +55,10 @@ function StencilSettings({
             <label>Left:</label>
             <input type="number" value={left} onChange={handleLeftChange} />
             <span>px</span>
+          </div>
+          <div>
+            {" "}
+            <input type="color" value={color} onChange={handleColorChange} />
           </div>
         </div>
         <div className="submit-settings">
