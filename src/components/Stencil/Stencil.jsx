@@ -4,6 +4,7 @@ import StencilSettings from "./StencilSettings";
 import ImageDisplay from "../ImageDisplay/ImageDisplay";
 import ImageComparer from "../ImageComparer/ImageComparer";
 import ImageSplitter from "../ImageSplitter/ImageSplitter";
+import DropdownMenu from "../DropdownMenu/DropdownMenu";
 
 function Stencil({ image1, image2, rows, cols }) {
   const [stencils, setStencils] = useState([
@@ -156,6 +157,7 @@ function Stencil({ image1, image2, rows, cols }) {
           Add Stencil
         </button>
       </div>
+      <DropdownMenu setStencil={setPendingStencils} />
       {stencils && (
         <div className="settings-container">
           <h2 className="stencil-header">Stencil Settings</h2>
