@@ -9,7 +9,7 @@ import SaveStencil from "../../SaveStencil/SaveStencil";
 
 function Stencil({ image1, image2, rows, cols }) {
   const [stencils, setStencils] = useState([
-    { width: 100, height: 100, top: 20, left: 20, color: "#000" },
+    { width: 100, height: 100, top: 20, left: 20, color: "#000000" },
   ]);
 
   const [pendingStencils, setPendingStencils] = useState([...stencils]);
@@ -98,7 +98,7 @@ function Stencil({ image1, image2, rows, cols }) {
       height: 100,
       top: 20,
       left: 20,
-      color: "#000",
+      color: "#000000",
     };
     setPendingStencils([...pendingStencils, newStencil]);
     setStencils([...stencils, newStencil]);

@@ -6,7 +6,7 @@ const SaveStencil = ({ stencil }) => {
   const [screenSize, setScreenSize] = useState("12.9");
   const [itemName, setItemName] = useState("");
   const [isSaveClicked, setIsSaveClicked] = useState(false);
-  console.log("screen", screenSize);
+
   const handleSave = () => {
     if (!label || !screenSize || !itemName) {
       // Set the flag to show validation errors
