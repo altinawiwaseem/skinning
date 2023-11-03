@@ -1,78 +1,75 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { data } from "../../stencilsInputs";
 import "./DropdownMenu.css";
 
 function DropdownMenu({ setStencil }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef(null);
+  const [selectedLabel, setSelectedLabel] = useState("");
+  const [selectedScreenSize, setSelectedScreenSize] = useState("");
+  const [selectedItemName, setSelectedItemName] = useState("");
 
-  const toggleMenu = () => {
-    console.log(data);
-    setIsOpen(!isOpen);
-  };
+  const uniqueLabels = [...new Set(data.map((item) => item.label))];
+  const uniqueScreenSizes = [...new Set(data.map((item) => item.screenSize))];
+  const uniqueItemNames = [...new Set(data.map((item) => item.itemName))];
 
+  const filteredData = data.filter(
+    (item) =>
+      (!selectedLabel || item.label === selectedLabel) &&
+      (!selectedScreenSize || item.screenSize === selectedScreenSize) &&
+      (!selectedItemName || item.itemName === selectedItemName)
+  );
   const handleItemClick = (items) => {
     setStencil(items);
-    setIsOpen(!isOpen);
   };
-
-  const handleDocumentClick = (event) => {
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setIsOpen(false);
-    }
-  };
-  useEffect(() => {
-    if (isOpen) {
-      document.addEventListener("click", handleDocumentClick);
-    } else {
-      document.removeEventListener("click", handleDocumentClick);
-    }
-    return () => {
-      document.removeEventListener("click", handleDocumentClick);
-    };
-  }, [isOpen]);
 
   return (
-    <div className={`dropdown ${isOpen ? "open" : ""}`} ref={menuRef}>
-      <div onClick={toggleMenu} className="dropdown-header">
-        <span>&#9660;</span>
-      </div>
-      {isOpen && data[0].children && (
-        <ul className="sub-menu">
-          {data.map((menuData, menuIndex) => (
-            <li key={menuIndex}>
-              {menuData.label}
-              {menuData.children.map((item, index) => (
-                <li key={index}>
-                  {item.label === "Screen Sizes" ? (
-                    <ul className="sub-sub-menu">
-                      {item.children.map((size, sizeIndex) => (
-                        <li key={sizeIndex}>
-                          {size.label}
-                          <ul className="sub-sub-sub-menu">
-                            {size.children.map((caseItem, caseIndex) => (
-                              <li
-                                className="sub-item"
-                                key={caseIndex}
-                                onClick={() => handleItemClick(caseItem.items)}
-                              >
-                                {caseItem.label}
-                              </li>
-                            ))}
-                          </ul>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    /* Include recursive call here if needed */
-                    <DropdownMenu data={item} setStencil={setStencil} />
-                  )}
-                </li>
-              ))}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="select">
+      <label>Select Label:</label>
+      <select
+        value={selectedLabel}
+        onChange={(e) => setSelectedLabel(e.target.value)}
+      >
+        <option value="">-- All Labels --</option>
+        {uniqueLabels.map((label) => (
+          <option key={label} value={label}>
+            {label}
+          </option>
+        ))}
+      </select>
+
+      <label>Select Screen Size:</label>
+      <select
+        value={selectedScreenSize}
+        onChange={(e) => setSelectedScreenSize(e.target.value)}
+      >
+        <option value="">-- All Screen Sizes --</option>
+        {uniqueScreenSizes.map((size) => (
+          <option key={size} value={size}>
+            {size}
+          </option>
+        ))}
+      </select>
+
+      <label>Select Item Name:</label>
+      <select
+        value={selectedItemName}
+        onChange={(e) => setSelectedItemName(e.target.value)}
+      >
+        <option value="">-- All Item Names --</option>
+        {uniqueItemNames.map((name) => (
+          <option key={name} value={name}>
+            {name}
+          </option>
+        ))}
+      </select>
+
+      <ul className="scrollable-list">
+        {filteredData.map((item, i) => (
+          <li key={i} onClick={() => handleItemClick(item.items)}>
+            Label: {item.label}, Screen Size: {item.screenSize}, Item Name:{" "}
+            {item.itemName}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
