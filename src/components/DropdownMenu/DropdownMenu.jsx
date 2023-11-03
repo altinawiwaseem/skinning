@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { data } from "../../stencilsInputs";
 import "./DropdownMenu.css";
 
@@ -7,11 +7,31 @@ function DropdownMenu({ setStencil }) {
   const [selectedScreenSize, setSelectedScreenSize] = useState("");
   const [selectedItemName, setSelectedItemName] = useState("");
 
-  const uniqueLabels = [...new Set(data.map((item) => item.label))];
-  const uniqueScreenSizes = [...new Set(data.map((item) => item.screenSize))];
-  const uniqueItemNames = [...new Set(data.map((item) => item.itemName))];
+  const getStencilFromLocalStorage = () => {
+    const localData = localStorage.getItem("savedStencil");
 
-  const filteredData = data.filter(
+    if (localData) {
+      return JSON.parse(localStorage.getItem("savedStencil"));
+    } else {
+      return [];
+    }
+  };
+
+  const [localData, setLocalData] = useState(getStencilFromLocalStorage());
+
+  useEffect(() => {
+    getStencilFromLocalStorage();
+  }, [localData]);
+
+  const allData = [...data, ...localData];
+
+  const uniqueLabels = [...new Set(allData.map((item) => item.label))];
+  const uniqueScreenSizes = [
+    ...new Set(allData.map((item) => item.screenSize)),
+  ];
+  const uniqueItemNames = [...new Set(allData.map((item) => item.itemName))];
+
+  const filteredData = allData.filter(
     (item) =>
       (!selectedLabel || item.label === selectedLabel) &&
       (!selectedScreenSize || item.screenSize === selectedScreenSize) &&
