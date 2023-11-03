@@ -11,6 +11,8 @@ ul {
 }
 .select {
   margin-top: 1rem;
+  display: flex;
+  gap: 10px;
 }
 li {
   padding: 10px;

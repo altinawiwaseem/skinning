@@ -2,6 +2,7 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "12.9",
+    type: "lhd",
     itemName: "NAV_MAP_TRIPVIEW_VIEW",
     items: [
       {
@@ -51,6 +52,7 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "12.9",
+    type: "lhd",
     itemName: "NAV_MAP_TRIPVIEW_VIEW_minimized",
     items: [
       {
@@ -94,6 +96,7 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "12.9",
+    type: "lhd",
     itemName: "PU_ROUTE_DETAILS",
     items: [
       {
@@ -164,6 +167,7 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "12.9",
+    type: "lhd",
     itemName: "VIEW_NAV_MAIN_NEW_DEST_SLDE_VIEW",
     items: [
       {
@@ -234,7 +238,8 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "12.9",
-    itemName: "VIEW_NAV_MAIN_NEW_DEST_SLDE_VIEW",
+    type: "lhd",
+    itemName: "VIEW_NAV_MAIN_PREDICTIVE",
     items: [
       {
         width: 2240,
@@ -333,6 +338,7 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "10.4",
+    type: "lhd",
     itemName: "NAV_MAP_TRIPVIEW_VIEW",
     items: [
       {
@@ -382,6 +388,7 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "10.4",
+    type: "lhd",
     itemName: "NAV_MAP_TRIPVIEW_VIEW_minimized",
     items: [
       {
@@ -425,6 +432,7 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "10.4",
+    type: "lhd",
     itemName: "PU_ROUTE_DETAILS",
     items: [
       {
@@ -495,6 +503,7 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "10.4",
+    type: "lhd",
     itemName: "VIEW_NAV_MAIN_NEW_DEST_SLDE_VIEW",
     items: [
       {
@@ -565,7 +574,8 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "10.4",
-    itemName: "VIEW_NAV_MAIN_NEW_DEST_SLDE_VIEW",
+    type: "lhd",
+    itemName: "VIEW_NAV_MAIN_PREDICTIVE",
     items: [
       {
         width: 2240,
@@ -664,6 +674,7 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "10",
+    type: "lhd",
     itemName: "NAV_MAP_TRIPVIEW_VIEW",
     items: [
       {
@@ -713,6 +724,7 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "10",
+    type: "lhd",
     itemName: "NAV_MAP_TRIPVIEW_VIEW_minimized",
     items: [
       {
@@ -756,6 +768,7 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "10",
+    type: "lhd",
     itemName: "PU_ROUTE_DETAILS",
     items: [
       {
@@ -826,6 +839,7 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "10",
+    type: "lhd",
     itemName: "VIEW_NAV_MAIN_NEW_DEST_SLDE_VIEW",
     items: [
       {
@@ -896,7 +910,8 @@ export const data = [
   {
     label: "Navigation",
     screenSize: "10",
-    itemName: "VIEW_NAV_MAIN_NEW_DEST_SLDE_VIEW",
+    type: "lhd",
+    itemName: "VIEW_NAV_MAIN_PREDICTIVE",
     items: [
       {
         width: 2240,
