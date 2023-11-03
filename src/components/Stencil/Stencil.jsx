@@ -5,6 +5,7 @@ import ImageDisplay from "../ImageDisplay/ImageDisplay";
 import ImageComparer from "../ImageComparer/ImageComparer";
 import ImageSplitter from "../ImageSplitter/ImageSplitter";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
+import SaveStencil from "../../SaveStencil/SaveStencil";
 
 function Stencil({ image1, image2, rows, cols }) {
   const [stencils, setStencils] = useState([
@@ -175,6 +176,7 @@ function Stencil({ image1, image2, rows, cols }) {
           ))}
         </div>
       )}
+      <SaveStencil stencil={pendingStencils} />
       <div className="stencil-container">
         <div className="images-con">
           <ImageDisplay
