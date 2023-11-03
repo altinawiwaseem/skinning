@@ -1,6 +1,6 @@
 export const data = [
   {
-    label: "Navigation",
+    label: "navigation",
     screenSize: "12.9",
     type: "lhd",
     itemName: "NAV_MAP_TRIPVIEW_VIEW",
