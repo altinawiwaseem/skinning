@@ -22,7 +22,7 @@ function DropdownMenu({ setStencil }) {
 
   useEffect(() => {
     getStencilFromLocalStorage();
-  }, [localData]);
+  }, [selectedType]);
 
   const allData = [...data, ...localData];
 
@@ -107,7 +107,6 @@ function DropdownMenu({ setStencil }) {
       <ul className="scrollable-list">
         {filteredData.map((item, i) => (
           <li key={i} onClick={() => handleItemClick(item.items)}>
-            Label: {item.label}, Screen Size: {item.screenSize}, Item Name:{" "}
             {item.itemName}
           </li>
         ))}

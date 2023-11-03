@@ -5,6 +5,7 @@ const SaveStencil = ({ stencil }) => {
   const [label, setLabel] = useState("");
   const [screenSize, setScreenSize] = useState("12.9");
   const [itemName, setItemName] = useState("");
+  const [type, setType] = useState("lhd");
   const [isSaveClicked, setIsSaveClicked] = useState(false);
 
   const handleSave = () => {
@@ -17,13 +18,14 @@ const SaveStencil = ({ stencil }) => {
       label,
       screenSize,
       itemName,
+      type,
       items: stencil,
     };
 
-    let existingData = localStorage.getItem("savedData");
+    let existingData = localStorage.getItem("savedStencil");
 
     if (existingData) {
-      existingData = JSON.parse(localStorage.getItem("savedData"));
+      existingData = JSON.parse(localStorage.getItem("savedStencil"));
     } else {
       existingData = [];
     }
@@ -54,6 +56,18 @@ const SaveStencil = ({ stencil }) => {
             required={isSaveClicked}
           />
         </label>
+
+        <label className="input-label">
+          Item Name:
+          <input
+            className="save-input-field"
+            type="text"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            required={isSaveClicked}
+          />
+        </label>
+
         <label className="input-label">
           Screen Size:
           <select
@@ -68,14 +82,17 @@ const SaveStencil = ({ stencil }) => {
           </select>
         </label>
         <label className="input-label">
-          Item Name:
-          <input
-            className="save-input-field"
-            type="text"
-            value={itemName}
-            onChange={(e) => setItemName(e.target.value)}
+          Type:
+          <select
+            className="select-field"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
             required={isSaveClicked}
-          />
+          >
+            <option value="lhd">LHD</option>
+            <option value="rhd">RHD</option>
+            <option value="arabic">ARABIC</option>
+          </select>
         </label>
       </div>
       {isSaveClicked && (
