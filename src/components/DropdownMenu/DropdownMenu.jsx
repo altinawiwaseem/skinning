@@ -19,7 +19,7 @@ function DropdownMenu({ setStencil }) {
   };
 
   const [localData, setLocalData] = useState(getStencilFromLocalStorage());
-
+  console.log("localData", localData);
   useEffect(() => {
     getStencilFromLocalStorage();
   }, [selectedType]);
@@ -31,7 +31,7 @@ function DropdownMenu({ setStencil }) {
     ...new Set(allData.map((item) => item.screenSize)),
   ];
   const uniqueItemNames = [...new Set(allData.map((item) => item.itemName))];
-
+  console.log("allData", allData);
   const filteredData = allData.filter(
     (item) =>
       (!selectedLabel || item.label === selectedLabel) &&
