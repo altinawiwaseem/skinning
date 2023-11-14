@@ -5,13 +5,14 @@ import Stencil from "../Stencil/Stencil";
 function ImageUploader() {
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
+  const [imageName, setImageName] = useState("");
   const [rowsNumber, setRowsNumber] = useState(20);
   const [colsNumber, setColsNumber] = useState(25);
 
   const handleImageUpload = (event, setImage) => {
     const file = event.target.files[0];
     const reader = new FileReader();
-
+    setImageName(file.name);
     reader.onload = (e) => {
       setImage(e.target.result);
     };
@@ -70,6 +71,7 @@ function ImageUploader() {
         <Stencil
           image1={image1}
           image2={image2}
+          imageName={imageName}
           rows={rowsNumber}
           cols={colsNumber}
         />

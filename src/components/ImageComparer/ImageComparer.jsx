@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import resemble from "resemblejs";
 import "./ImageComparer.css";
 
-function ImageComparer({ image1, image2, image3, image4 }) {
+function ImageComparer({ image1, image2, image3, image4, imageName }) {
   const [comparisonResult1, setComparisonResult1] = useState(null);
   const [comparisonResult2, setComparisonResult2] = useState(null);
 
@@ -89,45 +89,48 @@ function ImageComparer({ image1, image2, image3, image4 }) {
     image.src = comparison.getImageDataUrl();
   };
 
-  const saveDiffImage = async (canvas, filename) => {
+  const saveDiffImage = async (canvas, filename, mismatchPercentage) => {
     if (!canvas) {
       console.error("No canvas provided.");
       return;
     }
 
-    // Save the canvas as a Blob
-    canvas.toBlob(async (blob) => {
-      // Prompt user to choose a directory for saving
-      const opts = {
-        types: [
-          {
-            description: "PNG Image",
-            accept: {
-              "image/png": [".png"],
-            },
-          },
-          {
-            description: "JPEG Image",
-            accept: {
-              "image/jpeg": [".jpg", ".jpeg"],
-            },
-          },
-        ],
-      };
+    const tempCanvas = document.createElement("canvas");
+    const tempCtx = tempCanvas.getContext("2d");
 
-      try {
-        const fileHandle = await window.showSaveFilePicker(opts);
+    // Set the dimensions of the temp canvas to accommodate the original canvas and the text
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height + 50; // Adjust the additional height for text
 
-        if (fileHandle) {
-          const writableStream = await fileHandle.createWritable();
-          await writableStream.write(blob);
-          await writableStream.close();
-        } else {
-          console.log("User cancelled the save operation.");
-        }
-      } catch (error) {
-        console.error("Error saving file:", error);
-      }
+    // Draw the original canvas content on the temp canvas
+    tempCtx.drawImage(canvas, 0, 50);
+
+    // Clear a region above the image for the text background
+    tempCtx.clearRect(0, 0, tempCanvas.width, 50);
+
+    // Set font and text properties for the percentage display
+    tempCtx.font = "20px Arial";
+    tempCtx.fillStyle = "#333"; //background color for the text
+    tempCtx.textAlign = "center";
+
+    // Draw the background for the text
+    tempCtx.fillRect(0, 0, tempCanvas.width, 50);
+
+    // Draw the percentage text above the image in white color
+    tempCtx.fillStyle = "white"; // text color
+    tempCtx.fillText(
+      `Mismatch Percentage: ${mismatchPercentage}%`,
+      tempCanvas.width / 2,
+      30
+    );
+
+    // Save the temp canvas as a Blob
+    tempCanvas.toBlob(async (blob) => {
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+      URL.revokeObjectURL(link.href);
     }, "image/png");
   };
 
@@ -139,6 +142,34 @@ function ImageComparer({ image1, image2, image3, image4 }) {
       <div className="comparison-buttons">
         <button onClick={handleCompareImages}>Compare Images</button>
       </div>
+      {comparisonResult2 && (
+        <div className="comparison-outcome">
+          {/*   {displayImage1 && <img src={displayImage1} alt="Image 1" width="400" />}
+        {displayImage2 && <img src={displayImage2} alt="Image 2" width="400" />} */}
+          <h3>Comparison Result:</h3>
+          <p>Mismatch Percentage: {comparisonResult2.misMatchPercentage}</p>
+          <canvas
+            className="canvas-image"
+            ref={canvasRef2}
+            style={{ border: "1px solid black" }}
+            width={comparisonResult2.dimensionDifference.width}
+            height={comparisonResult2.dimensionDifference.height}
+          />
+          <div className="comparison-buttons">
+            <button
+              onClick={() =>
+                saveDiffImage(
+                  canvasRef2.current,
+                  imageName,
+                  comparisonResult2.misMatchPercentage
+                )
+              }
+            >
+              Save Diff Image
+            </button>
+          </div>
+        </div>
+      )}
       {comparisonResult1 && (
         <div className="comparison-outcome">
           <h3>Comparison Result 1:</h3>
@@ -154,31 +185,11 @@ function ImageComparer({ image1, image2, image3, image4 }) {
             <button
               className="comparison-buttons"
               onClick={() =>
-                saveDiffImage(canvasRef1.current, "DiffImage1.png")
-              }
-            >
-              Save Diff Image 1
-            </button>
-          </div>
-        </div>
-      )}
-      {comparisonResult2 && (
-        <div className="comparison-outcome">
-          {/*   {displayImage1 && <img src={displayImage1} alt="Image 1" width="400" />}
-        {displayImage2 && <img src={displayImage2} alt="Image 2" width="400" />} */}
-          <h3>Comparison Result 2:</h3>
-          <p>Mismatch Percentage: {comparisonResult2.misMatchPercentage}</p>
-          <canvas
-            className="canvas-image"
-            ref={canvasRef2}
-            style={{ border: "1px solid black" }}
-            width={comparisonResult2.dimensionDifference.width}
-            height={comparisonResult2.dimensionDifference.height}
-          />
-          <div className="comparison-buttons">
-            <button
-              onClick={() =>
-                saveDiffImage(canvasRef2.current, "DiffImage2.png")
+                saveDiffImage(
+                  canvasRef1.current,
+                  imageName,
+                  comparisonResult1.misMatchPercentage
+                )
               }
             >
               Save Diff Image 2

@@ -7,7 +7,7 @@ import ImageSplitter from "../ImageSplitter/ImageSplitter";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import SaveStencil from "../../SaveStencil/SaveStencil";
 
-function Stencil({ image1, image2, rows, cols }) {
+function Stencil({ image1, image2, imageName, rows, cols }) {
   const [stencils, setStencils] = useState([
     { width: 100, height: 100, top: 20, left: 20, color: "#000000" },
   ]);
@@ -198,6 +198,7 @@ function Stencil({ image1, image2, rows, cols }) {
         </div>
         <div>
           <ImageComparer
+            imageName={imageName}
             image1={imageStencilOnlyMemo1}
             image2={imageStencilOnlyMemo2}
             image3={imageWithStencilMemo1}
