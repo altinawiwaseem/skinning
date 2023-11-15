@@ -59,7 +59,7 @@ function ImageComparer({ image1, image2, image3, image4, imageName }) {
             blue: 255,
           },
           errorType: "movement",
-          transparency: 0.7,
+          /* transparency: 0.7, */
         })
         .onComplete((comparison) => {
           resolve(comparison);
